@@ -7,7 +7,7 @@ function App() {
     // Fetch blogs from the API
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/blogs/'); // Make the API request
+        const response = await fetch('http://backend:8080/api/blogs/'); // Make the API request
         const data = await response.json(); // Parse the response JSON
         setBlogs(data); // Set the fetched data to the state
       } catch (error) {
