@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [blogs, setBlogs] = useState([]); // State to store blogs
+
+  useEffect(() => {
+    // Fetch blogs from the API
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/blogs/'); // Make the API request
+        const data = await response.json(); // Parse the response JSON
+        setBlogs(data); // Set the fetched data to the state
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs(); // Call the function to fetch blogs
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      <h1>Blog Titles</h1>
+      <ul>
+        {/* Map through the blogs and display each title */}
+        {blogs.map((blog, index) => (
+          <li key={index}>{blog.title}</li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
-export default App
+export default App;
