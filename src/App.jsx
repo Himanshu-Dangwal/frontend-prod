@@ -11,7 +11,7 @@ function App() {
         const data = await response.json(); // Parse the response JSON
         setBlogs(data); // Set the fetched data to the state
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error("Error fetching the blogs:", error);
       }
     };
 
